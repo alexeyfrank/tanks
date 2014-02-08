@@ -194,6 +194,7 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 		}
 
+    this.object.position.x += 15;
 		if ( this.heightSpeed ) {
 
 			var y = THREE.Math.clamp( this.object.position.y, this.heightMin, this.heightMax );
@@ -257,7 +258,12 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 		this.object.lookAt( targetPosition );
 
-	};
+    //TODO: move numbers to config
+    this.object.position.x -= 15 * Math.sin( this.phi ) * Math.cos( this.theta );
+    this.object.position.y -= 15 * Math.cos( this.phi );
+    this.object.position.z -= 15 * Math.sin( this.phi ) * Math.sin( this.theta );
+    console.log(Math.sin( this.phi ), Math.cos( this.phi ))
+  };
 
 
 	this.domElement.addEventListener( 'contextmenu', function ( event ) { event.preventDefault(); }, false );
