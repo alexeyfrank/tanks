@@ -1,6 +1,6 @@
 define(function(require) {
   function Skybox(o) {
-    var geometry = new THREE.SphereGeometry(o.radius);
+    var geometry = new THREE.CubeGeometry(1024, 1024, 1024);
     var material = new THREE.MeshBasicMaterial({
       map: o.assetsManager.getTexture('skybox')
     });

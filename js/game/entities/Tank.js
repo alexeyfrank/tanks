@@ -4,6 +4,8 @@ define(function(require) {
 
     var model = assetsManager.getModel('tank_base');
     this.mesh = new THREE.Mesh(model.geometry, model.material);
+    this.mesh.rotateY(Math.PI / 2);
+
   }
 
   Tank.prototype.setData = function(data) {
@@ -11,8 +13,6 @@ define(function(require) {
   }
 
   Tank.prototype.update = function(frame) {
-    //!!!!! X -> Z
-
     this.mesh.position.x = this._data.x;
     this.mesh.position.y = this._data.y;
     this.mesh.position.z = 5;

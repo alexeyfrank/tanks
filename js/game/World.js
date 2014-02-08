@@ -71,7 +71,7 @@ define(function(require) {
       if(bullet){
         bullet.setData(newData);
       } else {
-        bullet = new Entities.Bullet(newData);
+        bullet = new Entities.Bullet(newData, this._assetsManager);
         this.bullets[item.Id] = bullet;
         this._scene.add(bullet.mesh);
       }
@@ -106,8 +106,6 @@ define(function(require) {
     this._camera.position.z = tank.mesh.position.z;
 
     this._camera.rotation.y = tank.mesh.rotation.z;
-
-    console.log(this._skybox.mesh.position)
   }
 
   World.prototype.setSelfTank = function(msg) {
