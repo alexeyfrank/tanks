@@ -74,6 +74,7 @@ define(function(require) {
 
         case "Tank":
           self.receiveTankMessage(message);
+          self.initGameControls()
           break;
 
         default:
@@ -83,6 +84,17 @@ define(function(require) {
     }
 
   };
+
+  Game.prototype.initGameControls = function() {
+    key('up', function(){
+      this.sendTankCommand({LeftMotor:1, RightMotor: 1})
+    }.bind(this))
+  }
+
+  Game.prototype.sendTankCommand = function(command) {
+    command.Type = "TankCommand"
+    this.sendMessage(command)
+  }
 
   Game.prototype.sendMessage = function(message) {
     message = JSON.stringify( message );
