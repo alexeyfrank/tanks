@@ -11,6 +11,7 @@ define(function(require) {
     this.update = opts.update;
     this.draw = opts.draw;
     this.receiveWorldMessage = opts.receiveWorldMessage;
+    this.receiveTankMessage = opts.receiveTankMessage;
 
     this._assetsLoaded = false;
 
@@ -63,8 +64,13 @@ define(function(require) {
 
     this.socket = new WebSocket("ws://nox73.ru:9000/ws")
 
+
     this.socket.onmessage = function ( event ) {
-      message = JSON.parse(event.data)
+      var message = JSON.parse(event.data)
+
+      if(message.Message) {
+        console.log(message.Message)
+      }
 
       switch(message["Type"]){
         case "World":
@@ -72,8 +78,9 @@ define(function(require) {
         break;
 
         case "Tank":
-          return
-        break;
+          self.receiveTankMessage(message);
+          self.initGameControls()
+          break;
 
         default:
           break;
@@ -83,8 +90,22 @@ define(function(require) {
 
   };
 
+  Game.prototype.initGameControls = function() {
+    key('up', function(event){
+      event.preventDefault()
+      this.sendTankCommand({LeftMotor:1, RightMotor: 1})
+    }.bind(this))
+  }
+
+  Game.prototype.sendTankCommand = function(command) {
+    command.Type = "TankCommand"
+    this.sendMessage(command)
+  }
+
   Game.prototype.sendMessage = function(message) {
     message = JSON.stringify( message );
+
+    console.log("Sending to server :" + message)
 
     this.socket.send( message );
   };

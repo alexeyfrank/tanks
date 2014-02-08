@@ -2,8 +2,8 @@ require(['lib/game', 'game/World'], function(Game, World) {
 
   var world = new World({
     gameContainer: document.getElementById('game-container'),
-    width: 600,
-    height: 600
+    width: 1280,
+    height: 1024
   });
 
   world.create();
@@ -25,6 +25,10 @@ require(['lib/game', 'game/World'], function(Game, World) {
 
     receiveWorldMessage: function(msg) {
       world.updateState(msg);
+    },
+
+    receiveTankMessage: function(msg) {
+      world.setSelfTank(msg);
     }
   });
 
