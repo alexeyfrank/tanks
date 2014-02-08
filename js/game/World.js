@@ -1,7 +1,6 @@
 define(function(require) {
   var Tank = require('game/entities/Tank')
   var Entities = require('game/Entities');
-  var _ = require('lodash');
 
   function World() {
     this.terrain = new Entities.Terrain();
