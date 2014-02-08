@@ -1,6 +1,11 @@
 define(function(require) {
   function AssetsManager() {
     this._textures = {};
+    this._jsonLoader = new THREE.JSONLoader();
+    this._meshes = {};
+    this._currentlyLoadingModel = "";
+    this._texturePath = "../../textures";
+    this._isModelLoading = false;
   }
 
   AssetsManager.prototype.loadTexture =function(name, path) {
@@ -11,17 +16,32 @@ define(function(require) {
     this._textures[name] = texture;
   }
 
-  AssetsManager.prototype.addModelCallback = function( geometry, materials )
+  AssetsManager.prototype.loadModelCallback = function( geometry, materials )
     {
         var material = new THREE.MeshFaceMaterial( materials );
         var mesh = new THREE.Mesh( geometry, material );
         this._world.getScene().add( mesh );
+        this._meshes[this._currentlyLoadingModel] = mesh;
+        this._isModelLoading = false;
     }
 
-  AssetsManager.prototype.beginLoadModel =function(modelName, world) {
+  AssetsManager.prototype.wait = function()
+  {
+      if(!this._isModelLoading)
+        return;
+  }
+
+  AssetsManager.prototype.loadModel =function(modelName, world) {
+      this._currentlyLoadingModel = modelName;
       this._world = world;
-      var jsonLoader = new THREE.JSONLoader();
-      jsonLoader.load( modelName, this.addModelCallback );
+      this._isModelLoading = true;
+      this._jsonLoader.load( modelName, this.loadModelCallback, this._texturePath );
+      this.setInterval(this.wait(), 10);
+  }
+
+  AssetsManager.prototype.getModel -function(name) {
+      if(!this._meshes[name].isNull)
+        return this._meshes[name];
   }
 
   AssetsManager.prototype.getTexture = function(name) {
