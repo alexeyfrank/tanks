@@ -2,8 +2,8 @@ require(['lib/Game', 'game/World'], function(Game, World) {
 
   var world = new World({
     gameContainer: document.getElementById('game-container'),
-    width: window.innerWidth,
-    height: window.innerHeight
+    width: 1024,
+    height: 768
   });
 
   function repeatedTx(texture) {
@@ -21,8 +21,9 @@ require(['lib/Game', 'game/World'], function(Game, World) {
       assetsManager.loadTexture('tank', '../textures/tank.jpg', noopTx);
 
       var promise = Q.all([
-        assetsManager.loadModel('tank_base', '../models/tank_base.js'),
-        assetsManager.loadModel('bullet', '../models/bullet.js')
+        assetsManager.loadModel('tank_base', '../models/tank_base.json'),
+        assetsManager.loadModel('tank_tower', '../models/tank_tower.json'),
+        assetsManager.loadModel('bullet', '../models/bullet.json')
       ]);
 
       world.setAssetsManager(assetsManager);
@@ -45,6 +46,10 @@ require(['lib/Game', 'game/World'], function(Game, World) {
 
     receiveTankMessage: function(msg) {
       world.setSelfTank(msg);
+    },
+
+    getCameraDiffRotation: function() {
+      return world.cameraRotationDiff()
     }
   });
 

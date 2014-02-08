@@ -1,6 +1,6 @@
 define(function(require) {
   function Skybox(o) {
-    var geometry = new THREE.CubeGeometry(1024, 1024, 1024);
+    var geometry = new THREE.CubeGeometry(o.width, o.height, o.height);
     var material = new THREE.MeshBasicMaterial({
       map: o.assetsManager.getTexture('skybox')
     });
@@ -8,6 +8,8 @@ define(function(require) {
     material.side = THREE.BackSide;
 
     this.mesh = new THREE.Mesh(geometry, material);
+    this.mesh.position.x = o.width / 2;
+    this.mesh.position.z = o.height / 2;
   }
 
   Skybox.prototype.setData = function(data) {

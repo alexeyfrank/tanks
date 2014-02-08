@@ -3,8 +3,11 @@ define(function(require) {
     var geometry = new THREE.PlaneGeometry(o.width, o.height);
     var material = new THREE.MeshBasicMaterial({ map: o.assetsManager.getTexture('terrain') });
     this.mesh = new THREE.Mesh(geometry, material);
-//    this.mesh.position.x = -o.width / 2
-//    this.mesh.position.y = -o.height / 2
+
+    this.mesh.position.x = o.width / 2;
+    this.mesh.position.z = o.height / 2;
+
+    this.mesh.rotation.x = - Math.PI/ 2
   }
 
   Terrain.prototype.setData = function(data) {

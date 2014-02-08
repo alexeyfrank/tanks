@@ -3,9 +3,23 @@ define(function(require) {
     this._data = data;
 
     var model = assetsManager.getModel('tank_base');
-    this.mesh = new THREE.Mesh(model.geometry, model.material);
-    this.mesh.rotateY(Math.PI / 2);
 
+    var material = new THREE.MeshBasicMaterial({color: 0x00ff00, wireframe: true });
+    this.baseMesh = new THREE.Mesh(model.geometry, material);
+    this.baseMesh.rotateY(Math.PI / 2);
+
+
+    this.baseMesh.scale.x = 5; 
+    this.baseMesh.scale.y = 5;
+    this.baseMesh.scale.z = 5;
+
+    model = assetsManager.getModel('tank_tower');
+    this.towerMesh = new THREE.Mesh(model.geometry, material);
+    this.towerMesh.scale.x = 5;
+    this.towerMesh.scale.y = 5;
+    this.towerMesh.scale.z = 5;
+
+    this.towerMesh.rotation.y = Math.PI / 2;
   }
 
   Tank.prototype.setData = function(data) {
@@ -13,11 +27,25 @@ define(function(require) {
   }
 
   Tank.prototype.update = function(frame) {
-    this.mesh.position.x = this._data.x;
-    this.mesh.position.y = this._data.y;
-    this.mesh.position.z = 5;
+    //!!!!! X -> Z
 
-    this.mesh.rotation.z = this._data.rotation * Math.PI/180;
+    this.baseMesh.position.x = this._data.y;
+    this.baseMesh.position.z = this._data.x;
+    this.baseMesh.position.y = 2.5;
+
+    this.towerMesh.position.x = this._data.y;
+    this.towerMesh.position.z = this._data.x;
+    this.towerMesh.position.y = 7;
+
+    this.baseMesh.rotation.y = - this._data.rotation * Math.PI/180;
+  }
+
+  Tank.prototype.position = function() {
+    return this.baseMesh.position;
+  }
+
+  Tank.prototype.rotation = function() {
+    return this.baseMesh.rotation;
   }
 
   return Tank;

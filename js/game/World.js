@@ -5,16 +5,25 @@ define(function(require) {
 
   World.prototype.create = function() {
     this._scene = new THREE.Scene();
-    this._camera = new THREE.PerspectiveCamera( 75, this._config.width / this._config.height, 0.1, 2000 );
-    this._camera.rotation.x = Math.PI / 2;
+    this._camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 2000 );
+    this._clock = new THREE.Clock();
+
+    //this._camera.rotation.x = Math.PI / 2;
+
+    window.c = this._camera;
+    this._controls = new THREE.FirstPersonControls( this._camera );
+    this._controls.lookVertical = false
+    this._controls.lookSpeed = 0.1
 
     this._renderer = new THREE.WebGLRenderer();
-    this._renderer.setSize( this._config.width, this._config.height );
+
+    this._renderer.setSize( window.innerWidth, window.innerHeight);
 
     this._config.gameContainer.appendChild(this._renderer.domElement);
 
     var axisHelper = new THREE.AxisHelper( 50 );
     this._scene.add( axisHelper );
+
 
     this._terrain = new Entities.Terrain({
       width: this._config.width * 2,
@@ -60,13 +69,13 @@ define(function(require) {
     bullets.forEach(function(item){
 
      var newData = {
-        x: - item.Coords.Y,
-        y: - item.Coords.X,
-        rotation: - item.Direction + 180
+        x: item.Coords.Y,
+        y: item.Coords.X,
+        rotation: item.Direction
       }
 
-      bullet = this.bullets[item.Id]
-      if(bullet){
+      var bullet = this.bullets[item.Id];
+      if(bullet) {
         bullet.setData(newData);
       } else {
         bullet = new Entities.Bullet(newData, this._assetsManager);
@@ -81,9 +90,9 @@ define(function(require) {
   World.prototype.updateTanksState = function(tanks) {
     tanks.forEach(function(item){
       var newData = {
-        x: - item.Coords.Y,
-        y: - item.Coords.X,
-        rotation: - item.Direction + 180
+        x: item.Coords.Y,
+        y: item.Coords.X,
+        rotation: item.Direction
       }
 
       var tank = this.tanks[item.Id];
@@ -92,17 +101,23 @@ define(function(require) {
       } else {
         tank = new Entities.Tank(newData, this._assetsManager);
         this.tanks[item.Id] = tank;
-        this._scene.add(tank.mesh);
+        this._scene.add(tank.baseMesh);
+        this._scene.add(tank.towerMesh);
       }
     }.bind(this))
   }
 
   World.prototype.updateCameraForPlayer = function(tank) {
-    this._camera.position.x = tank.mesh.position.x;
-    this._camera.position.y = tank.mesh.position.y;
-    this._camera.position.z = tank.mesh.position.z;
+    var delta = this._clock.getDelta()
 
-    this._camera.rotation.y = tank.mesh.rotation.z;
+    this._camera.position.x = tank.position().x;
+    this._camera.position.z = tank.position().z;
+
+    this._camera.position.y = 4;
+
+    this._controls.update( delta );
+
+    //this._camera.rotation.y =  tank.mesh.rotation.y - Math.PI / 2;
   }
 
   World.prototype.setSelfTank = function(msg) {
@@ -116,5 +131,12 @@ define(function(require) {
   World.prototype.getScene = function() {
       return this._scene;
   }
+
+  World.prototype.cameraRotationDiff = function() {
+    console.log(this._camera.rotation.y)
+    //this._camera.rotation.y
+    return 100;
+  }
+
   return World;
 });
