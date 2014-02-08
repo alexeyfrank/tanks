@@ -91,10 +91,47 @@ define(function(require) {
   };
 
   Game.prototype.initGameControls = function() {
-    key('up', function(event){
+
+    var keys = {
+      'up': {
+        left: 1,
+        right:1
+      },
+
+      'down': {
+        left: -1,
+        right: -1
+      },
+
+      'left': {
+        left: -0.5,
+        right: 0.5
+      },
+
+      'right': {
+        left: 0.5,
+        right: -0.5
+      }
+    }
+
+    var allKeys = Object.getOwnPropertyNames(keys)
+
+    Mousetrap.bind(allKeys, function(event, keyName){
       event.preventDefault()
-      this.sendTankCommand({LeftMotor:1, RightMotor: 1})
-    }.bind(this))
+      if(!event.repeat){
+        this.sendMotors( keys[keyName].left, keys[keyName].right )
+      }
+    }.bind(this), "keydown")
+
+    Mousetrap.bind(allKeys, function(event){
+      event.preventDefault()
+      this.sendMotors(0,0)
+    }.bind(this), "keyup")
+
+  }
+
+  Game.prototype.sendMotors = function(left, right) {
+      this.sendTankCommand({LeftMotor:left, RightMotor: right})
   }
 
   Game.prototype.sendTankCommand = function(command) {

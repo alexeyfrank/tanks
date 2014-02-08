@@ -11,6 +11,7 @@
     "tests"
   ],
   "dependencies": {
-    "threejs": "*"
+    "threejs": "*",
+    "mousetrap": "~1.4.6"
   }
 }
