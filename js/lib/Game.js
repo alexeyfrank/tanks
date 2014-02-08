@@ -91,7 +91,8 @@ define(function(require) {
   };
 
   Game.prototype.initGameControls = function() {
-    key('up', function(){
+    key('up', function(event){
+      event.preventDefault()
       this.sendTankCommand({LeftMotor:1, RightMotor: 1})
     }.bind(this))
   }
@@ -103,6 +104,8 @@ define(function(require) {
 
   Game.prototype.sendMessage = function(message) {
     message = JSON.stringify( message );
+
+    console.log("Sending to server :" + message)
 
     this.socket.send( message );
   };
