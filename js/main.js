@@ -1,6 +1,12 @@
 require(['lib/game', 'game/World'], function(Game, World) {
 
-  var world = new World();
+  var world = new World({
+    gameContainer: document.getElementById('game-container'),
+    width: 600,
+    height: 600
+  });
+
+  world.create();
 
   var game = new Game({
     preloadAssets: function(assetsManager) {
@@ -23,10 +29,7 @@ require(['lib/game', 'game/World'], function(Game, World) {
   });
 
   game.setOptions({
-    id: window.location.hash.slice(1, 10),
-    container: 'game-container',
-    width: 600,
-    height: 600
+    id: window.location.hash.slice(1, 10)
   });
 
   game.run();
