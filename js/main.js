@@ -21,6 +21,8 @@ require(['lib/Game', 'game/World'], function(Game, World) {
       assetsManager.loadTexture('tank', '../textures/tank.jpg', noopTx);
       assetsManager.loadSkybox();
 
+//      assetsManager.loadAudio('fight', '../audio/fight.mp3');
+
       var promise = Q.all([
         assetsManager.loadModel('tank_base', '../models/tank_base.json'),
         assetsManager.loadModel('tank_tower', '../models/tank_tower.json'),
@@ -47,6 +49,10 @@ require(['lib/Game', 'game/World'], function(Game, World) {
 
     receiveTankMessage: function(msg) {
       world.setSelfTank(msg);
+    },
+
+    receiveHitMessage: function(msg) {
+      document.getElementById('game-overlay').style.opacity = 1;
     },
 
     getCameraDiffRotation: function() {

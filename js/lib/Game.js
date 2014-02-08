@@ -12,6 +12,7 @@ define(function(require) {
     this.draw = opts.draw;
     this.receiveWorldMessage = opts.receiveWorldMessage;
     this.receiveTankMessage = opts.receiveTankMessage;
+    this.receiveHitMessage = opts.receiveHitMessage;
     this.getCameraDiffRotation = opts.getCameraDiffRotation;
 
     this._assetsLoaded = false;
@@ -64,10 +65,11 @@ define(function(require) {
     this.socket.onmessage = function ( event ) {
       var message = JSON.parse(event.data)
 
-      if(message.Message) {
-        console.log(message.Message)
-      }
+//      if(message.Message) {
+//        console.log(message.Message)
+//      }
 
+      console.log(message['Type'])
       switch(message["Type"]){
         case "World":
           self.receiveWorldMessage(message)
@@ -77,6 +79,10 @@ define(function(require) {
           self.receiveTankMessage(message);
           self.initGameControls()
           self.initTurrelMouse()
+          break;
+
+        case "Hit":
+          self.receiveHitMessage(message);
           break;
 
         default:
@@ -176,8 +182,6 @@ define(function(require) {
 
   Game.prototype.sendMessage = function(message) {
     message = JSON.stringify( message );
-
-    //console.log("Sending to server :" + message)
 
     this.socket.send( message );
   };

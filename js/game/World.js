@@ -42,6 +42,8 @@ define(function(require) {
 
     this.tanks = {};
     this.bullets = {};
+
+//    this._assetsManager.getAudio('fight').play();
   }
 
   World.prototype.update = function(frame) {

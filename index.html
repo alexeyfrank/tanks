@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
     <title></title>
     <style type="text/css">
         * {
@@ -8,10 +9,31 @@
             padding: 0;
             border: 0;
         }
+
+        #game-overlay {
+            position: absolute;
+            width: 100%;
+            height: 768px;
+            background: transparent;
+            z-index: 100;
+            opacity: 0;
+        }
+
+        .dead {
+            width: 150px;
+            color: red;
+            font-size: 40px;
+            font-weight: bold;
+            margin: 0 auto;
+            margin-top: 300px;
+        }
     </style>
 </head>
 <body>
 
+<div id="game-overlay">
+    <div class="dead">ПОТРАЧЕНО</div>
+</div>
 <div id="game-container">
 </div>
 
