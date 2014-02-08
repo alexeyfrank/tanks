@@ -3,7 +3,6 @@ define(function(require) {
     var geometry = new THREE.PlaneGeometry(o.width, o.height);
     var material = new THREE.MeshBasicMaterial({ map: o.assetsManager.getTexture('terrain') });
     this.mesh = new THREE.Mesh(geometry, material);
-
   }
 
   Terrain.prototype.setData = function(data) {
@@ -11,7 +10,6 @@ define(function(require) {
   }
 
   Terrain.prototype.update = function(frame) {
-
   }
 
   return Terrain;
