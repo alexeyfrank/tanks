@@ -1,5 +1,11 @@
 define(function(require) {
-  function Terrain() {
+  function Terrain(o) {
+    var geometry = new THREE.PlaneGeometry(o.width, o.height);
+    var material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
+    this.mesh = new THREE.Mesh(geometry, material);
+
+    this.mesh.rotation.x = -Math.PI/2;
+    this.mesh.position.z = 0;
   }
 
   Terrain.prototype.setData = function(data) {
@@ -7,9 +13,7 @@ define(function(require) {
   }
 
   Terrain.prototype.update = function(frame) {
-  }
 
-  Terrain.prototype.draw = function(frame) {
   }
 
   return Terrain;

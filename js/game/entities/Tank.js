@@ -12,12 +12,11 @@ define(function(require) {
   }
 
   Tank.prototype.update = function(frame) {
-    this.mesh.position.x = this._data.x;
+    //!!!!! X -> Z
+    console.log(this._data)
+    this.mesh.position.z = this._data.x;
     this.mesh.position.y = this._data.y;
-    this.mesh.position.z = 0;
-  }
-
-  Tank.prototype.draw = function(frame) {
+    this.mesh.position.x = 0;
   }
 
   return Tank;

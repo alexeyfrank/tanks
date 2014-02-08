@@ -2,8 +2,8 @@ require(['lib/game', 'game/World'], function(Game, World) {
 
   var world = new World({
     gameContainer: document.getElementById('game-container'),
-    width: 1280,
-    height: 1024
+    width: 1024,
+    height: 768
   });
 
   world.create();
