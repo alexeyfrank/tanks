@@ -47,7 +47,7 @@ define(function(require) {
       var newData = {
         x: item.Coords.X,
         y: item.Coords.Y,
-        rotation: item.Coords.Direction
+        rotation: item.Direction
       }
 
       tank = this.tanks[item.Id];
