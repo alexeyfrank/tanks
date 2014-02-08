@@ -30,7 +30,7 @@ define(function(require) {
     this._scene.add(this._terrain.mesh);
 
     this.tanks = {};
-    this.bullets = [];
+    this.bullets = {};
   }
 
   World.prototype.update = function(frame) {
@@ -42,6 +42,9 @@ define(function(require) {
         this.updateCameraForPlayer(tank);
       }
     }, this);
+    _.forIn(this.bullets, function(bullet, id) {
+      bullet.update(frame)
+    }, this);
   };
 
   World.prototype.draw = function(frame) {
@@ -50,25 +53,50 @@ define(function(require) {
   };
 
   World.prototype.updateState = function(newState) {
-    newState.Tanks.forEach(function(item){
-      var newData = {
-        x: item.Coords.Y,
-        y: item.Coords.X,
-        rotation: item.Direction
+    this.updateTanksState(newState.Tanks)
+    this.updateBulletsState(newState.Bullets)
+  }
+
+  World.prototype.updateBulletsState = function(bullets) {
+    bullets.forEach(function(item){
+
+     var newData = {
+        x: - item.Coords.Y,
+        y: - item.Coords.X,
+        rotation: - item.Direction + 180
       }
 
-      tank = this.tanks[item.Id];
-
-      if(_.isUndefined(tank)){
-        tank = new Entities.Tank(newData);
-        this.tanks[item.Id] = tank;
-        this._scene.add(tank.mesh);
+      bullet = this.bullets[item.Id]
+      if(bullet){
+        bullet.setData(newData);
       } else {
-        tank.setData(newData);
+        bullet = new Entities.Bullet(newData);
+        this.bullets[item.Id] = bullet;
+        this._scene.add(bullet.mesh);
       }
 
     }.bind(this))
 
+  }
+
+  World.prototype.updateTanksState = function(tanks) {
+    tanks.forEach(function(item){
+      var newData = {
+        x: - item.Coords.Y,
+        y: - item.Coords.X,
+        rotation: - item.Direction + 180
+      }
+
+      var tank = this.tanks[item.Id];
+      if(tank){
+        tank.setData(newData);
+      } else {
+        tank = new Entities.Tank(newData);
+        this.tanks[item.Id] = tank;
+        this._scene.add(tank.mesh);
+      }
+
+    }.bind(this))
   }
 
   World.prototype.updateCameraForPlayer = function(tank) {
