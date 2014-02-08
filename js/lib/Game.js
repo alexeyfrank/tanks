@@ -27,6 +27,7 @@ define(function(require) {
 
     this._lastTime = new Date();
     this._gameState == GameState.STARTED;
+    this._startBackandCycle();
     this._startGameCycle();
   }
 
@@ -44,9 +45,51 @@ define(function(require) {
     }
   }
 
+  Game.prototype._startBackandCycle = function() {
+    this._initWebsocket()
+    this._Authorizate()
+  }
+
+  Game.prototype._Authorizate = function() {
+    this.sendMessage({ Type:"Auth", Login: "rand", Password: "rand" })
+  }
+
+  Game.prototype._initWebsocket = function() {
+    socket = new WebSocket("ws://nox73:9000/ws")
+
+    socket.onmessage = function ( event ) {
+      message = JSON.parse(event.data)
+
+      switch(message["Type"]){
+        case "World":
+          this.receiveWorldMessage(message)
+        break;
+
+        case "Tank":
+          return
+        break;
+
+        default:
+          break;
+      }
+
+    }
+
+  };
+
+  Game.prototype.sendMessage = function(message) {
+    message = JSON.stringify( message );
+
+    socket.send( message );
+  };
+
+  Game.prototype.receiveWorldMessage = function(message) {
+    console.log(message);
+  };
+
   Game.prototype.stop = function() {
     this._gameState = GameState.STOPPED;
-  }
+  };
 
   return Game;
 });
