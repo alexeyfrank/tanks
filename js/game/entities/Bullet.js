@@ -9,8 +9,5 @@ define(function(require) {
   Bullet.prototype.update = function(frame) {
   }
 
-  Bullet.prototype.draw = function(frame) {
-  }
-
   return Bullet;
 })

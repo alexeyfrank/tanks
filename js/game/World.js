@@ -4,9 +4,6 @@ define(function(require) {
   function World(config) {
     this._config = config;
 
-    this.terrain = new Entities.Terrain();
-    this.tanks = {};
-    this.bullets = [];
   }
 
   World.prototype.create = function() {
@@ -17,16 +14,25 @@ define(function(require) {
     this._renderer.setSize( this._config.width, this._config.height );
 
     this._config.gameContainer.appendChild(this._renderer.domElement);
+
+    this._terrain = new Entities.Terrain({
+      width: 1024,
+      height: 768
+    });
+
+    this._scene.add(this._terrain.mesh);
+
+    this.tanks = {};
+    this.bullets = [];
   }
 
   World.prototype.update = function(frame) {
     //TODO: Update controls
+
     _.forIn(this.tanks, function(tank, id) {
       tank.update(frame);
       if (this._id && id == this._id) {
-        this._camera.position.x = tank.mesh.position.x - 1;
-        this._camera.position.y = tank.mesh.position.y - 1;
-        this._camera.position.z = 5;
+        this.updateCameraForPlayer(tank);
       }
     }, this);
   };
@@ -58,6 +64,12 @@ define(function(require) {
 
   }
 
+  World.prototype.updateCameraForPlayer = function(tank) {
+    this._camera.position.x = tank.mesh.position.x;
+    this._camera.position.y = tank.mesh.position.y + 1;
+    this._camera.position.z = tank.mesh.position.z + 5;
+  }
+
   World.prototype.setSelfTank = function(msg) {
     this._id = msg.Tank.Id;
   }
@@ -65,4 +77,4 @@ define(function(require) {
   World.prototype.setAssetsManager = function() {}
 
   return World;
-})
+});
