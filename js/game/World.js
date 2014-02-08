@@ -8,7 +8,12 @@ define(function(require) {
     this._camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 2000 );
     this._clock = new THREE.Clock();
 
-    //this._controls = new THREE.FirstPersonControls( this._camera );
+    //this._camera.rotation.x = Math.PI / 2;
+
+    window.c = this._camera;
+    this._controls = new THREE.FirstPersonControls( this._camera );
+    this._controls.lookVertical = false
+    this._controls.lookSpeed = 0.1
 
     this._renderer = new THREE.WebGLRenderer();
 
@@ -21,14 +26,13 @@ define(function(require) {
 
 
     this._terrain = new Entities.Terrain({
-      width: this._config.width,
-      height: this._config.height,
+      width: this._config.width * 2,
+      height: this._config.height * 2,
       assetsManager: this._assetsManager
     });
 
     this._skybox = new Entities.Skybox({
-      width: this._config.width,
-      height: this._config.height,
+      radius: this._config.width,
       assetsManager: this._assetsManager
     })
 
@@ -104,16 +108,16 @@ define(function(require) {
   }
 
   World.prototype.updateCameraForPlayer = function(tank) {
-    //var delta = this._clock.getDelta()
+    var delta = this._clock.getDelta()
 
     this._camera.position.x = tank.position().x;
     this._camera.position.z = tank.position().z;
 
     this._camera.position.y = 4;
 
-    //this._controls.update( delta );
+    this._controls.update( delta );
 
-    this._camera.rotation.y =  tank.rotation().y - Math.PI / 2;
+    //this._camera.rotation.y =  tank.mesh.rotation.y - Math.PI / 2;
   }
 
   World.prototype.setSelfTank = function(msg) {
@@ -127,5 +131,12 @@ define(function(require) {
   World.prototype.getScene = function() {
       return this._scene;
   }
+
+  World.prototype.cameraRotationDiff = function() {
+    console.log(this._camera.rotation.y)
+    //this._camera.rotation.y
+    return 100;
+  }
+
   return World;
 });

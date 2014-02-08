@@ -46,6 +46,10 @@ require(['lib/Game', 'game/World'], function(Game, World) {
 
     receiveTankMessage: function(msg) {
       world.setSelfTank(msg);
+    },
+
+    getCameraDiffRotation: function() {
+      return world.cameraRotationDiff()
     }
   });
 

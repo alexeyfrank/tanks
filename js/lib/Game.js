@@ -12,6 +12,7 @@ define(function(require) {
     this.draw = opts.draw;
     this.receiveWorldMessage = opts.receiveWorldMessage;
     this.receiveTankMessage = opts.receiveTankMessage;
+    this.getCameraDiffRotation = opts.getCameraDiffRotation;
 
     this._assetsLoaded = false;
 
@@ -75,6 +76,7 @@ define(function(require) {
         case "Tank":
           self.receiveTankMessage(message);
           self.initGameControls()
+          self.initTurrelMouse()
           break;
 
         default:
@@ -85,8 +87,14 @@ define(function(require) {
 
   };
 
-  Game.prototype.initGameControls = function() {
+  Game.prototype.initTurrelMouse = function() {
+    setInterval(function(){
+      var diff = this.getCameraDiffRotation()
+      this.sendTankCommand({Gun: {TurnAngle: diff}})
+    }.bind(this), 1000)
+  }
 
+  Game.prototype.initGameControls = function() {
 
     var keys = {
 
