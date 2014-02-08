@@ -97,7 +97,8 @@ define(function(require) {
       } else {
         tank = new Entities.Tank(newData, this._assetsManager);
         this.tanks[item.Id] = tank;
-        this._scene.add(tank.mesh);
+        this._scene.add(tank.baseMesh);
+        this._scene.add(tank.towerMesh);
       }
     }.bind(this))
   }
@@ -105,14 +106,14 @@ define(function(require) {
   World.prototype.updateCameraForPlayer = function(tank) {
     //var delta = this._clock.getDelta()
 
-    this._camera.position.x = tank.mesh.position.x;
-    this._camera.position.z = tank.mesh.position.z;
+    this._camera.position.x = tank.position().x;
+    this._camera.position.z = tank.position().z;
 
     this._camera.position.y = 4;
 
     //this._controls.update( delta );
 
-    this._camera.rotation.y =  tank.mesh.rotation.y - Math.PI / 2;
+    this._camera.rotation.y =  tank.rotation().y - Math.PI / 2;
   }
 
   World.prototype.setSelfTank = function(msg) {
