@@ -70,8 +70,8 @@ define(function(require) {
         rotation: item.Direction
       }
 
-      bullet = this.bullets[item.Id]
-      if(bullet){
+      var bullet = this.bullets[item.Id];
+      if(bullet) {
         bullet.setData(newData);
       } else {
         bullet = new Entities.Bullet(newData, this._assetsManager);
