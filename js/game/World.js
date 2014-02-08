@@ -31,7 +31,7 @@ define(function(require) {
         tank = new Tank(newData);
         this.tanks[item.Id] = tank;
       } else {
-        tank.updateData(newData);
+        tank.setData(newData);
       }
 
     }.bind(this))
