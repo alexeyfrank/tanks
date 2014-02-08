@@ -11,7 +11,37 @@ define(function(require) {
     this._textures[name] = texture;
   }
 
-  AssetsManager.prototype.loadTextureCube =function(name, path, cb) {
+    AssetsManager.prototype.loadSkybox = function() {
+        var urls = [
+            '../textures/sky001.jpg',
+            '../textures/sky002.jpg',
+            '../textures/sky003.jpg',
+            '../textures/sky004.jpg',
+            '../textures/sky005.jpg',
+            '../textures/sky006.jpg'
+        ];
+
+        var cubemap = THREE.ImageUtils.loadTextureCube(urls); // load textures
+        cubemap.format = THREE.RGBFormat;
+
+        var shader = THREE.ShaderLib['cube']; // init cube shader from built-in lib
+        shader.uniforms['tCube'].value = cubemap; // apply textures to shader
+
+        this._skyboxMaterial = new THREE.ShaderMaterial( {
+            fragmentShader: shader.fragmentShader,
+            vertexShader: shader.vertexShader,
+            uniforms: shader.uniforms,
+            depthWrite: false,
+            side: THREE.BackSide
+        });
+    }
+
+    AssetsManager.prototype.getSkybox = function()
+    {
+        return this._skyboxMaterial;
+    }
+
+    AssetsManager.prototype.loadTextureCube =function(name, path, cb) {
     var texture = THREE.ImageUtils.loadTextureCube(path);
     this._textures[name] = cb(texture);
     this._textures[name] = texture;

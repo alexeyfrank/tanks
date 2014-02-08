@@ -19,6 +19,7 @@ require(['lib/Game', 'game/World'], function(Game, World) {
       assetsManager.loadTexture('terrain', '../textures/terrain.jpg', repeatedTx);
       assetsManager.loadTexture('skybox', '../textures/tank.jpg', noopTx);
       assetsManager.loadTexture('tank', '../textures/tank.jpg', noopTx);
+      assetsManager.loadSkybox();
 
       var promise = Q.all([
         assetsManager.loadModel('tank_base', '../models/tank_base.json'),
