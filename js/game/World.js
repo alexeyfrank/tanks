@@ -5,17 +5,14 @@ define(function(require) {
 
   World.prototype.create = function() {
     this._scene = new THREE.Scene();
-    this._camera = new THREE.PerspectiveCamera( 75, this._config.width / this._config.height, 0.1, 2000 );
+    this._camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 2000 );
     this._clock = new THREE.Clock();
 
-    //this._camera.rotation.x = Math.PI / 2;
-
-    window.c = this._camera;
     //this._controls = new THREE.FirstPersonControls( this._camera );
 
     this._renderer = new THREE.WebGLRenderer();
 
-    this._renderer.setSize( this._config.width, this._config.height );
+    this._renderer.setSize( window.innerWidth, window.innerHeight);
 
     this._config.gameContainer.appendChild(this._renderer.domElement);
 
