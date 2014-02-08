@@ -20,8 +20,8 @@ define(function(require) {
     this._scene.add( axisHelper );
 
     this._terrain = new Entities.Terrain({
-      width: 1024 * 10,
-      height: 768 * 10,
+      width: 768,
+      height: 1024,
       assetsManager: this._assetsManager
     });
 
