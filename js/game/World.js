@@ -26,13 +26,14 @@ define(function(require) {
 
 
     this._terrain = new Entities.Terrain({
-      width: this._config.width * 2,
-      height: this._config.height * 2,
+      width: this._config.width,
+      height: this._config.height,
       assetsManager: this._assetsManager
     });
 
     this._skybox = new Entities.Skybox({
-      radius: this._config.width,
+      width: this._config.width,
+      height: this._config.height,
       assetsManager: this._assetsManager
     })
 
@@ -92,7 +93,8 @@ define(function(require) {
       var newData = {
         x: item.Coords.Y,
         y: item.Coords.X,
-        rotation: item.Direction
+        rotation: item.Direction,
+        towerRotation: item.Gun.Direction
       }
 
       var tank = this.tanks[item.Id];
@@ -117,7 +119,7 @@ define(function(require) {
 
     this._controls.update( delta );
 
-    //this._camera.rotation.y =  tank.mesh.rotation.y - Math.PI / 2;
+//    this._camera.rotation.y =  tank.rotation().y - Math.PI / 2;
   }
 
   World.prototype.setSelfTank = function(msg) {
@@ -135,7 +137,7 @@ define(function(require) {
   World.prototype.cameraRotationDiff = function() {
     console.log(this._camera.rotation.y)
     //this._camera.rotation.y
-    return 100;
+    return 0;
   }
 
   return World;
