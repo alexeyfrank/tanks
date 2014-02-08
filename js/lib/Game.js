@@ -64,8 +64,13 @@ define(function(require) {
 
     this.socket = new WebSocket("ws://nox73.ru:9000/ws")
 
+
     this.socket.onmessage = function ( event ) {
-      message = JSON.parse(event.data)
+      var message = JSON.parse(event.data)
+
+      if(message.Message) {
+        console.log(message.Message)
+      }
 
       switch(message["Type"]){
         case "World":
