@@ -502,6 +502,8 @@
 		"colorSpecular" : [0.3997795879840851, 0.3997795879840851, 0.3997795879840851],
 		"depthTest" : true,
 		"depthWrite" : true,
+		"mapDiffuse" : "tank.jpg",
+		"mapDiffuseWrap" : ["repeat", "repeat"],
 		"shading" : "Lambert",
 		"specularCoef" : 244,
 		"transparency" : 1.0,

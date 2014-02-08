@@ -19,7 +19,19 @@
 	"materials" : [	{
 		"DbgColor" : 15658734,
 		"DbgIndex" : 0,
-		"DbgName" : "default",
+		"DbgName" : "Material.002",
+		"blending" : "NormalBlending",
+		"colorAmbient" : [0.17971449166110887, 0.17971449166110887, 0.17971449166110887],
+		"colorDiffuse" : [0.17971449166110887, 0.17971449166110887, 0.17971449166110887],
+		"colorSpecular" : [0.5, 0.5, 0.5],
+		"depthTest" : true,
+		"depthWrite" : true,
+		"mapBump" : "tank.jpg",
+		"mapBumpWrap" : ["repeat", "repeat"],
+		"shading" : "Lambert",
+		"specularCoef" : 50,
+		"transparency" : 1.0,
+		"transparent" : false,
 		"vertexColors" : false
 	}],
 
