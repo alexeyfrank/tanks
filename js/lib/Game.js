@@ -95,7 +95,7 @@ define(function(require) {
     setInterval(function(){
       var diff = this.getCameraDiffRotation()
       this.rotateGun(diff)
-    }.bind(this), 1000)
+    }.bind(this), 200)
   }
 
   Game.prototype.initGameControls = function() {

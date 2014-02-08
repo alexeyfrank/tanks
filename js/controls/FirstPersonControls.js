@@ -256,13 +256,14 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 		targetPosition.y = position.y + 100 * Math.cos( this.phi );
 		targetPosition.z = position.z + 100 * Math.sin( this.phi ) * Math.sin( this.theta );
 
+    this._targetVector = targetPosition;
+
 		this.object.lookAt( targetPosition );
 
     //TODO: move numbers to config
     this.object.position.x -= 15 * Math.sin( this.phi ) * Math.cos( this.theta );
     this.object.position.y -= 15 * Math.cos( this.phi );
     this.object.position.z -= 15 * Math.sin( this.phi ) * Math.sin( this.theta );
-    console.log(Math.sin( this.phi ), Math.cos( this.phi ))
   };
 
 
