@@ -2,10 +2,7 @@ define(function(require) {
   function AssetsManager() {
     this._textures = {};
     this._jsonLoader = new THREE.JSONLoader();
-    this._meshes = {};
-    this._currentlyLoadingModel = "";
-    this._texturePath = "../../textures";
-    this._isModelLoading = false;
+    this._models = {};
   }
 
   AssetsManager.prototype.loadTexture =function(name, path) {
@@ -16,32 +13,23 @@ define(function(require) {
     this._textures[name] = texture;
   }
 
-  AssetsManager.prototype.loadModelCallback = function( geometry, materials )
-    {
-        var material = new THREE.MeshFaceMaterial( materials );
-        var mesh = new THREE.Mesh( geometry, material );
-        this._world.getScene().add( mesh );
-        this._meshes[this._currentlyLoadingModel] = mesh;
-        this._isModelLoading = false;
-    }
-
-  AssetsManager.prototype.wait = function()
-  {
-      if(!this._isModelLoading)
-        return;
+  AssetsManager.prototype.loadModelCallback = function(name, geometry, materials) {
+    var material = new THREE.MeshFaceMaterial( materials );
+    this._models[name] = { geometry: geometry, material: material };
   }
 
-  AssetsManager.prototype.loadModel =function(modelName, world) {
-      this._currentlyLoadingModel = modelName;
-      this._world = world;
-      this._isModelLoading = true;
-      this._jsonLoader.load( modelName, this.loadModelCallback, this._texturePath );
-      this.setInterval(this.wait(), 10);
+  AssetsManager.prototype.loadModel = function(modelName, path) {
+    var defer = Q.defer();
+    this._jsonLoader.load(path, function(g, m) {
+      this.loadModelCallback(modelName, g, m);
+      defer.resolve();
+    }.bind(this), '../textures/');
+
+    return defer.promise;
   }
 
   AssetsManager.prototype.getModel = function(name) {
-      if(!this._meshes[name].isNull)
-        return this._meshes[name];
+    return this._models[name];
   }
 
   AssetsManager.prototype.getTexture = function(name) {

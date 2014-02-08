@@ -21,16 +21,12 @@ define(function(require) {
 
 
   Game.prototype.run = function() {
-    if (!this._assetsLoaded) {
-      //TODO: Async preloading
-      this.preloadAssets(this._assetsManager);
-      this._assetsLoaded = true;
-    }
-
-    this._lastTime = new Date();
-    this._gameState = GameState.STARTED;
-    this._startBackendCycle();
-    this._startGameCycle();
+    this.preloadAssets(this._assetsManager).then(function() {
+      this._lastTime = new Date();
+      this._gameState = GameState.STARTED;
+      this._startBackendCycle();
+      this._startGameCycle();
+    }.bind(this));
   }
 
   Game.prototype._startGameCycle = function() {

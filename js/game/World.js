@@ -91,7 +91,7 @@ define(function(require) {
       if(tank){
         tank.setData(newData);
       } else {
-        tank = new Entities.Tank(newData);
+        tank = new Entities.Tank(newData, this._assetsManager);
         this.tanks[item.Id] = tank;
         this._scene.add(tank.mesh);
       }

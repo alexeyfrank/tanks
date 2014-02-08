@@ -12,8 +12,14 @@ require(['lib/Game', 'game/World'], function(Game, World) {
       //TODO: load assets
       assetsManager.loadTexture('terrain', '../textures/terrain.jpg');
 
+      var promise = Q.all([
+        assetsManager.loadModel('tank_base', '../models/tank_base.js')
+      ]);
+
       world.setAssetsManager(assetsManager);
       world.create();
+
+      return promise;
     },
 
     update: function(frame) {
