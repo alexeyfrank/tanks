@@ -70,5 +70,13 @@ define(function(require) {
     return  this._textures[name];
   }
 
+//  AssetsManager.prototype.loadAudio = function() {
+//
+//
+//  }
+//
+//  AssetsManager.prototype.getAudio = function() {
+//
+//  }
   return AssetsManager;
 })

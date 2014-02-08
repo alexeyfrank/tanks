@@ -5,7 +5,7 @@ define(function(require) {
 
   World.prototype.create = function() {
     this._scene = new THREE.Scene();
-    this._camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 2000 );
+    this._camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 3000 );
     this._clock = new THREE.Clock();
 
     //this._camera.rotation.x = Math.PI / 2;
@@ -13,7 +13,7 @@ define(function(require) {
     window.c = this._camera;
     this._controls = new THREE.FirstPersonControls( this._camera );
     this._controls.lookVertical = false
-    this._controls.lookSpeed = 0.1
+    this._controls.lookSpeed = 0.2
 
     this._renderer = new THREE.WebGLRenderer();
 
@@ -42,6 +42,8 @@ define(function(require) {
 
     this.tanks = {};
     this.bullets = {};
+
+//    this._assetsManager.getAudio('fight').play();
   }
 
   World.prototype.update = function(frame) {
@@ -67,6 +69,7 @@ define(function(require) {
   }
 
   World.prototype.updateBulletsState = function(bullets) {
+    var existed = [];
     bullets.forEach(function(item){
 
      var newData = {
@@ -84,7 +87,14 @@ define(function(require) {
         this._scene.add(bullet.mesh);
       }
 
+      existed.push(parseInt(item.Id));
     }.bind(this))
+
+    _.forIn(this.bullets, function(b, id) {
+      if (!_.contains(existed, parseInt(id))) {
+        this._scene.remove(b.mesh);
+      }
+    }, this);
 
   }
 
@@ -149,16 +159,33 @@ define(function(require) {
     var tank = this.tanks[this._id]
     var camRotation = (this._camera.rotation.y + Math.PI/2) * 180 / Math.PI
     var gunRotation = tank.gunRotation()
+
+    var flag1 = this._camera.position.x > this._controls._targetVector.x;
+    var flag2 = this._camera.position.z > this._controls._targetVector.z;
+
+    if(!flag1 && flag2) {
+      camRotation = 360 - camRotation
+    }
+
+    if(flag2 && flag1) {
+      camRotation = 360 - camRotation;
+    }
+
     var diff = camRotation - gunRotation
 
-    console.log(this._camera.rotation.y)
-    console.log((this._camera.rotation.y) * 180 / Math.PI)
-    console.log((this._camera.rotation.y + Math.PI/2) * 180 / Math.PI)
-    console.log(tank.gunRotation())
-    console.log(diff)
+    if (diff > 180) {
+      diff = diff - 360 
+    }
 
-    //this._camera.rotation.y
-    return 0;
+    if (diff < -180) {
+      diff = 360 + diff
+    }
+
+    if (diff < 1 && diff > -1) {
+      diff = 0
+    }
+
+    return diff;
   }
 
   return World;

@@ -2,7 +2,8 @@ define(function(require) {
   function Skybox(o) {
 
       this.mesh = new THREE.Mesh(
-          new THREE.CubeGeometry(o.height*2, o.height*2, o.height*2, 3, 3, 1),
+//          new THREE.CubeGeometry(o.height*2, o.height*2, o.height*2, 3, 3, 1),
+        new THREE.SphereGeometry(o.height * 2),
           o.assetsManager.getSkybox()
       );
   }
