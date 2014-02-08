@@ -13,7 +13,7 @@ define(function(require) {
     window.c = this._camera;
     this._controls = new THREE.FirstPersonControls( this._camera );
     this._controls.lookVertical = false
-    this._controls.lookSpeed = 0.1
+    this._controls.lookSpeed = 0.2
 
     this._renderer = new THREE.WebGLRenderer();
 
@@ -181,7 +181,7 @@ define(function(require) {
       diff = 360 + diff
     }
 
-    if (diff < 3 && diff > -3) {
+    if (diff < 1 && diff > -1) {
       diff = 0
     }
 
