@@ -156,6 +156,10 @@ define(function(require) {
       this.sendMotors(leftReal, rightReal)
     }.bind(this), "keyup")
 
+    Mousetrap.bind('enter', function(event, keyName){
+      event.preventDefault()
+      this.sendTankCommand({Fire: true})
+    }.bind(this));
 
   }
 
