@@ -1,14 +1,11 @@
 define(function(require) {
   var Entities = require('game/Entities');
 
-  function World(config) {
-    this._config = config;
-
-  }
+  function World(config) { this._config = config; }
 
   World.prototype.create = function() {
     this._scene = new THREE.Scene();
-    this._camera = new THREE.PerspectiveCamera( 75, this._config.width / this._config.height, 0.1, 1000 );
+    this._camera = new THREE.PerspectiveCamera( 75, this._config.width / this._config.height, 0.1, 2000 );
     this._camera.rotation.x = Math.PI / 2;
 
     this._renderer = new THREE.WebGLRenderer();
@@ -25,17 +22,21 @@ define(function(require) {
       assetsManager: this._assetsManager
     });
 
+    this._skybox = new Entities.Skybox({
+      radius: 1024,
+      assetsManager: this._assetsManager
+    })
+
     window.t = this._terrain.mesh;
 
     this._scene.add(this._terrain.mesh);
+    this._scene.add(this._skybox.mesh);
 
     this.tanks = {};
     this.bullets = {};
   }
 
   World.prototype.update = function(frame) {
-    //TODO: Update controls
-
     _.forIn(this.tanks, function(tank, id) {
       tank.update(frame);
       if (this._id && id == this._id) {
@@ -100,12 +101,13 @@ define(function(require) {
   }
 
   World.prototype.updateCameraForPlayer = function(tank) {
-    window.c = this._camera
     this._camera.position.x = tank.mesh.position.x;
     this._camera.position.y = tank.mesh.position.y;
     this._camera.position.z = tank.mesh.position.z;
 
     this._camera.rotation.y = tank.mesh.rotation.z;
+
+    console.log(this._skybox.mesh.position)
   }
 
   World.prototype.setSelfTank = function(msg) {

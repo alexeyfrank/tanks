@@ -2,9 +2,6 @@ define(function(require) {
   function Tank(data, assetsManager) {
     this._data = data;
 
-//    var geometry = new THREE.CubeGeometry(5,5,5);
-//    var material = new THREE.MeshBasicMaterial({color: 0x00ff00, wireframe: true});
-//    this.mesh = new THREE.Mesh(geometry, material);
     var model = assetsManager.getModel('tank_base');
     this.mesh = new THREE.Mesh(model.geometry, model.material);
   }
