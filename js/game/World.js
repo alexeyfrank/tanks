@@ -89,6 +89,7 @@ define(function(require) {
   }
 
   World.prototype.updateTanksState = function(tanks) {
+    var existedTanksIds = [];
     tanks.forEach(function(item){
       var newData = {
         x: item.Coords.Y,
@@ -106,7 +107,17 @@ define(function(require) {
         this._scene.add(tank.baseMesh);
         this._scene.add(tank.towerMesh);
       }
+
+      existedTanksIds.push(parseInt(item.Id));
     }.bind(this))
+
+    _.forIn(this.tanks, function(tank, id) {
+      if (!_.contains(existedTanksIds, parseInt(id))) {
+        this._scene.remove(tank.baseMesh);
+        this._scene.remove(tank.towerMesh);
+      }
+    }, this);
+
   }
 
   World.prototype.updateCameraForPlayer = function(tank) {
@@ -135,7 +146,17 @@ define(function(require) {
   }
 
   World.prototype.cameraRotationDiff = function() {
+    var tank = this.tanks[this._id]
+    var camRotation = (this._camera.rotation.y + Math.PI/2) * 180 / Math.PI
+    var gunRotation = tank.gunRotation()
+    var diff = camRotation - gunRotation
+
     console.log(this._camera.rotation.y)
+    console.log((this._camera.rotation.y) * 180 / Math.PI)
+    console.log((this._camera.rotation.y + Math.PI/2) * 180 / Math.PI)
+    console.log(tank.gunRotation())
+    console.log(diff)
+
     //this._camera.rotation.y
     return 0;
   }

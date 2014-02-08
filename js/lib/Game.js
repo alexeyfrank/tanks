@@ -87,36 +87,28 @@ define(function(require) {
 
   };
 
+  Game.prototype.rotateGun = function(val) {
+      this.sendTankCommand({Gun: {TurnAngle: val}})
+  };
+
   Game.prototype.initTurrelMouse = function() {
     setInterval(function(){
       var diff = this.getCameraDiffRotation()
-      this.sendTankCommand({Gun: {TurnAngle: diff}})
+      this.rotateGun(diff)
     }.bind(this), 1000)
   }
 
   Game.prototype.initGameControls = function() {
 
     var keys = {
-
-      'up': {
-        left: 1,
-        right:1
-      },
-
-      'down': {
-        left: -1,
-        right: -1
-      },
-
-      'left': {
-        left: -0.5,
-        right: 0.5
-      },
-
-      'right': {
-        left: 0.5,
-        right: -0.5
-      }
+      'up': { left: 1, right:1 },
+      'down': { left: -1, right: -1 },
+      'left': { left: -0.5, right: 0.5 },
+      'right': { left: 0.5, right: -0.5 },
+      'w': { left: 1, right:1 },
+      's': { left: -1, right: -1 },
+      'a': { left: -0.5, right: 0.5 },
+      'd': { left: 0.5, right: -0.5 }
     }
 
     var allKeys = Object.getOwnPropertyNames(keys);
@@ -159,7 +151,7 @@ define(function(require) {
       this.sendMotors(leftReal, rightReal)
     }.bind(this), "keyup")
 
-    Mousetrap.bind('enter', function(event, keyName){
+    Mousetrap.bind(['enter', 'space'], function(event, keyName){
       event.preventDefault()
       this.sendTankCommand({Fire: true})
     }.bind(this));

@@ -59,4 +59,6 @@ require(['lib/Game', 'game/World'], function(Game, World) {
   });
 
   game.run();
+
+  window.g = game;
 });
