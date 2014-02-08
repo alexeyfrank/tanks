@@ -26,13 +26,14 @@ define(function(require) {
 
 
     this._terrain = new Entities.Terrain({
-      width: this._config.width * 2,
-      height: this._config.height * 2,
+      width: this._config.width,
+      height: this._config.height,
       assetsManager: this._assetsManager
     });
 
     this._skybox = new Entities.Skybox({
-      radius: this._config.width,
+      width: this._config.width,
+      height: this._config.height,
       assetsManager: this._assetsManager
     })
 
