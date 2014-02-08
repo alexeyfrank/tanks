@@ -76,5 +76,8 @@ define(function(require) {
 
   World.prototype.setAssetsManager = function() {}
 
+  World.prototype.getScene = function() {
+      return this._scene;
+  }
   return World;
 });
