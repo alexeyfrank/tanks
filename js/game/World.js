@@ -108,8 +108,9 @@ define(function(require) {
     //var delta = this._clock.getDelta()
 
     this._camera.position.x = tank.mesh.position.x;
-    this._camera.position.y = tank.mesh.position.y;
     this._camera.position.z = tank.mesh.position.z;
+
+    this._camera.position.y = 4;
 
     //this._controls.update( delta );
 
