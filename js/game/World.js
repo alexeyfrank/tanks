@@ -9,16 +9,22 @@ define(function(require) {
   World.prototype.create = function() {
     this._scene = new THREE.Scene();
     this._camera = new THREE.PerspectiveCamera( 75, this._config.width / this._config.height, 0.1, 1000 );
+    this._camera.rotation.x = Math.PI / 2;
 
     this._renderer = new THREE.WebGLRenderer();
     this._renderer.setSize( this._config.width, this._config.height );
 
     this._config.gameContainer.appendChild(this._renderer.domElement);
 
+    var axisHelper = new THREE.AxisHelper( 50 );
+    this._scene.add( axisHelper );
+
     this._terrain = new Entities.Terrain({
-      width: 1024,
-      height: 768
+      width: 1024 * 10,
+      height: 768 * 10
     });
+
+    window.t = this._terrain.mesh;
 
     this._scene.add(this._terrain.mesh);
 
@@ -45,8 +51,8 @@ define(function(require) {
   World.prototype.updateState = function(newState) {
     newState.Tanks.forEach(function(item){
       var newData = {
-        x: item.Coords.X,
-        y: item.Coords.Y,
+        x: item.Coords.Y,
+        y: item.Coords.X,
         rotation: item.Direction
       }
 
@@ -65,9 +71,12 @@ define(function(require) {
   }
 
   World.prototype.updateCameraForPlayer = function(tank) {
+    window.c = this._camera
     this._camera.position.x = tank.mesh.position.x;
-    this._camera.position.y = tank.mesh.position.y + 1;
-    this._camera.position.z = tank.mesh.position.z + 5;
+    this._camera.position.y = tank.mesh.position.y;
+    this._camera.position.z = tank.mesh.position.z;
+
+    this._camera.rotation.y = tank.mesh.rotation.z;
   }
 
   World.prototype.setSelfTank = function(msg) {

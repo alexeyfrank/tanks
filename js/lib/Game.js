@@ -156,6 +156,7 @@ define(function(require) {
       this.sendMotors(leftReal, rightReal)
     }.bind(this), "keyup")
 
+
   }
 
   Game.prototype.sendMotors = function(left, right) {

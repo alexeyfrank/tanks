@@ -4,8 +4,6 @@ define(function(require) {
     var material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
     this.mesh = new THREE.Mesh(geometry, material);
 
-    this.mesh.rotation.x = -Math.PI/2;
-    this.mesh.position.z = 0;
   }
 
   Terrain.prototype.setData = function(data) {
