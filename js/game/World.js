@@ -161,8 +161,6 @@ define(function(require) {
     var flag1 = this._camera.position.x > this._controls._targetVector.x;
     var flag2 = this._camera.position.z > this._controls._targetVector.z;
 
-    console.log(camRotation)
-
     if(!flag1 && flag2) {
       camRotation = 360 - camRotation
     }

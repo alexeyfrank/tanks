@@ -49,7 +49,7 @@ define(function(require) {
   }
 
   Tank.prototype.gunRotation = function() {
-    return (this.baseMesh.rotation.y - this.towerMesh.rotation.y) * 180 / Math.PI
+    return this._data.towerRotation + this._data.rotation
   }
 
   return Tank;
