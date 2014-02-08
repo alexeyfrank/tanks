@@ -21,8 +21,8 @@ require(['lib/Game', 'game/World'], function(Game, World) {
       assetsManager.loadTexture('tank', '../textures/tank.jpg', noopTx);
 
       var promise = Q.all([
-        assetsManager.loadModel('tank_base', '../models/tank_base.js'),
-        assetsManager.loadModel('bullet', '../models/bullet.js')
+        assetsManager.loadModel('tank_base', '../models/tank_base.json'),
+        assetsManager.loadModel('bullet', '../models/bullet.json')
       ]);
 
       world.setAssetsManager(assetsManager);
