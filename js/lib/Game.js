@@ -11,6 +11,7 @@ define(function(require) {
     this.update = opts.update;
     this.draw = opts.draw;
     this.receiveWorldMessage = opts.receiveWorldMessage;
+    this.receiveTankMessage = opts.receiveTankMessage;
 
     this._assetsLoaded = false;
 
@@ -72,8 +73,8 @@ define(function(require) {
         break;
 
         case "Tank":
-          return
-        break;
+          self.receiveTankMessage(message);
+          break;
 
         default:
           break;
