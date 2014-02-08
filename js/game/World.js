@@ -21,7 +21,8 @@ define(function(require) {
 
     this._terrain = new Entities.Terrain({
       width: 1024 * 10,
-      height: 768 * 10
+      height: 768 * 10,
+      assetsManager: this._assetsManager
     });
 
     window.t = this._terrain.mesh;
@@ -83,7 +84,9 @@ define(function(require) {
     this._id = msg.Tank.Id;
   }
 
-  World.prototype.setAssetsManager = function() {}
+  World.prototype.setAssetsManager = function(assetsManager) {
+    this._assetsManager = assetsManager;
+  }
 
   World.prototype.getScene = function() {
       return this._scene;

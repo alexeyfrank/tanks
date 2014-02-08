@@ -6,13 +6,14 @@ require(['lib/Game', 'game/World'], function(Game, World) {
     height: 768
   });
 
-  world.create();
 
   var game = new Game({
     preloadAssets: function(assetsManager) {
       //TODO: load assets
+      assetsManager.loadTexture('terrain', '../textures/terrain.jpg');
 
       world.setAssetsManager(assetsManager);
+      world.create();
     },
 
     update: function(frame) {

@@ -39,7 +39,7 @@ define(function(require) {
       this.setInterval(this.wait(), 10);
   }
 
-  AssetsManager.prototype.getModel -function(name) {
+  AssetsManager.prototype.getModel = function(name) {
       if(!this._meshes[name].isNull)
         return this._meshes[name];
   }
