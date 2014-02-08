@@ -92,7 +92,9 @@ define(function(require) {
 
   Game.prototype.initGameControls = function() {
 
+
     var keys = {
+
       'up': {
         left: 1,
         right:1
@@ -114,18 +116,44 @@ define(function(require) {
       }
     }
 
-    var allKeys = Object.getOwnPropertyNames(keys)
+    var allKeys = Object.getOwnPropertyNames(keys);
+    var left = 0;
+    var right = 0;
 
     Mousetrap.bind(allKeys, function(event, keyName){
       event.preventDefault()
       if(!event.repeat){
-        this.sendMotors( keys[keyName].left, keys[keyName].right )
+
+        left += keys[keyName].left
+        right += keys[keyName].right
+
+        var leftReal = left
+        var rightReal = right
+
+        if(leftReal > 1) {leftReal = 1}
+        if(leftReal < -1) {leftReal = -1}
+        if(rightReal > 1) {rightReal = 1}
+        if(rightReal < -1) {rightReal = -1}
+
+        this.sendMotors( leftReal, rightReal )
       }
     }.bind(this), "keydown")
 
-    Mousetrap.bind(allKeys, function(event){
+    Mousetrap.bind(allKeys, function(event, keyName){
       event.preventDefault()
-      this.sendMotors(0,0)
+
+        left -= keys[keyName].left
+        right -= keys[keyName].right
+
+        var leftReal = left
+        var rightReal = right
+
+        if(leftReal > 1) {leftReal = 1}
+        if(leftReal < -1) {leftReal = -1}
+        if(rightReal > 1) {rightReal = 1}
+        if(rightReal < -1) {rightReal = -1}
+
+      this.sendMotors(leftReal, rightReal)
     }.bind(this), "keyup")
 
   }
