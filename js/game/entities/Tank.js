@@ -13,6 +13,7 @@ define(function(require) {
 
   Tank.prototype.update = function(frame) {
     //!!!!! X -> Z
+    console.log(this._data)
     this.mesh.position.z = this._data.x;
     this.mesh.position.y = this._data.y;
     this.mesh.position.x = 0;
