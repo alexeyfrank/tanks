@@ -60,7 +60,6 @@ define(function(require) {
 
     this.socket = new WebSocket("ws://192.168.0.71:9000/ws")
 
-
     this.socket.onmessage = function ( event ) {
       var message = JSON.parse(event.data)
 
