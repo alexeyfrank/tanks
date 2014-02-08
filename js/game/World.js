@@ -5,7 +5,7 @@ define(function(require) {
 
   World.prototype.create = function() {
     this._scene = new THREE.Scene();
-    this._camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 2000 );
+    this._camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 3000 );
     this._clock = new THREE.Clock();
 
     //this._camera.rotation.x = Math.PI / 2;
