@@ -58,7 +58,7 @@ define(function(require) {
   Game.prototype._initWebsocket = function() {
     var self = this;
 
-    this.socket = new WebSocket("ws://nox73.ru:9000/ws")
+    this.socket = new WebSocket("ws://192.168.0.71:9000/ws")
 
 
     this.socket.onmessage = function ( event ) {

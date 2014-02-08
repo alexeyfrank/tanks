@@ -2,11 +2,10 @@ define(function(require) {
   function Tank(data, assetsManager) {
     this._data = data;
 
-//    var geometry = new THREE.CubeGeometry(5,5,5);
-//    var material = new THREE.MeshBasicMaterial({color: 0x00ff00, wireframe: true});
-//    this.mesh = new THREE.Mesh(geometry, material);
     var model = assetsManager.getModel('tank_base');
     this.mesh = new THREE.Mesh(model.geometry, model.material);
+    this.mesh.rotateY(Math.PI / 2);
+
   }
 
   Tank.prototype.setData = function(data) {
@@ -14,8 +13,6 @@ define(function(require) {
   }
 
   Tank.prototype.update = function(frame) {
-    //!!!!! X -> Z
-
     this.mesh.position.x = this._data.x;
     this.mesh.position.y = this._data.y;
     this.mesh.position.z = 5;

@@ -1,10 +1,13 @@
 define(function(require) {
-  function Bullet(data) {
+  function Bullet(data, assetsManager) {
     this._data = data;
 
-    var geometry = new THREE.CubeGeometry(1,1,1);
-    var material = new THREE.MeshBasicMaterial({color: 0xff0000, wireframe: true});
-    this.mesh = new THREE.Mesh(geometry, material);
+    var model = assetsManager.getModel('bullet');
+    this.mesh = new THREE.Mesh(model.geometry, model.material);
+    this.mesh.rotation.y = Math.PI / 2;
+    this.mesh.scale.x = 5; // SCALE
+    this.mesh.scale.y = 5; // SCALE
+    this.mesh.scale.z = 5; // SCALE
   }
 
   Bullet.prototype.setData = function(data) {

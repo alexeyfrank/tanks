@@ -5,11 +5,15 @@ define(function(require) {
     this._models = {};
   }
 
-  AssetsManager.prototype.loadTexture =function(name, path) {
+  AssetsManager.prototype.loadTexture =function(name, path, cb) {
     var texture = THREE.ImageUtils.loadTexture(path);
-    texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat.set(10, 10);
+    this._textures[name] = cb(texture);
+    this._textures[name] = texture;
+  }
 
+  AssetsManager.prototype.loadTextureCube =function(name, path, cb) {
+    var texture = THREE.ImageUtils.loadTextureCube(path);
+    this._textures[name] = cb(texture);
     this._textures[name] = texture;
   }
 
