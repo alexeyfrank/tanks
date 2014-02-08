@@ -9,6 +9,10 @@ require(['lib/game'], function(Game) {
     },
 
     draw: function(frame) {
+    },
+
+    receiveWorldMessage: function(msg) {
+      console.log(msg);
     }
   });
 
