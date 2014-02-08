@@ -67,9 +67,9 @@ define(function(require) {
     bullets.forEach(function(item){
 
      var newData = {
-        x: - item.Coords.Y,
-        y: - item.Coords.X,
-        rotation: - item.Direction + 180
+        x: item.Coords.Y,
+        y: item.Coords.X,
+        rotation: item.Direction
       }
 
       bullet = this.bullets[item.Id]
