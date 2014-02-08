@@ -13,11 +13,13 @@ define(function(require) {
   }
 
   Tank.prototype.update = function(frame) {
-    this.mesh.position.x = this._data.x;
-    this.mesh.position.y = this._data.y;
-    this.mesh.position.z = 5;
+    //!!!!! X -> Z
 
-    this.mesh.rotation.z = this._data.rotation * Math.PI/180;
+    this.mesh.position.x = this._data.y;
+    this.mesh.position.z = this._data.x;
+    this.mesh.position.y = 5;
+
+    this.mesh.rotation.y = - this._data.rotation * Math.PI/180;
   }
 
   return Tank;

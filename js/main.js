@@ -2,8 +2,8 @@ require(['lib/Game', 'game/World'], function(Game, World) {
 
   var world = new World({
     gameContainer: document.getElementById('game-container'),
-    width: window.innerWidth,
-    height: window.innerHeight
+    width: 1024,
+    height: 768
   });
 
   function repeatedTx(texture) {
