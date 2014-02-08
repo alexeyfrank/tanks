@@ -1,15 +1,23 @@
-require([], function() {
-//  var Game = require('game');
+require(['lib/game'], function(Game) {
 
-//  var game = new Game({
-//    id: window.location.hash.slice(1, 10),
-//    container: 'game-container',
-//    width: 600,
-//    height: 600
-//  });
-//
-//  game.preloadAssets(function() {
-//    game.create();
-//    game.run();
-//  });
+  var game = new Game({
+    preloadAssets: function(assetsManager) {
+
+    },
+
+    update: function(frame) {
+    },
+
+    draw: function(frame) {
+    }
+  });
+
+  game.setOptions({
+    id: window.location.hash.slice(1, 10),
+    container: 'game-container',
+    width: 600,
+    height: 600
+  });
+
+  game.run();
 });

@@ -26,8 +26,8 @@ define(function(require) {
     }
 
     this._lastTime = new Date();
-    this._gameState == GameState.STARTED;
-    this._startBackandCycle();
+    this._gameState = GameState.STARTED;
+    this._startBackendCycle();
     this._startGameCycle();
   }
 
@@ -45,24 +45,29 @@ define(function(require) {
     }
   }
 
-  Game.prototype._startBackandCycle = function() {
+  Game.prototype._startBackendCycle = function() {
     this._initWebsocket()
-    this._Authorizate()
+    setTimeout(function() {
+      this._Authorizate()
+    }.bind(this), 1000);
   }
+
 
   Game.prototype._Authorizate = function() {
     this.sendMessage({ Type:"Auth", Login: "rand", Password: "rand" })
   }
 
   Game.prototype._initWebsocket = function() {
-    socket = new WebSocket("ws://nox73:9000/ws")
+    var self = this;
 
-    socket.onmessage = function ( event ) {
+    this.socket = new WebSocket("ws://nox73.ru:9000/ws")
+
+    this.socket.onmessage = function ( event ) {
       message = JSON.parse(event.data)
 
       switch(message["Type"]){
         case "World":
-          this.receiveWorldMessage(message)
+          self.receiveWorldMessage(message)
         break;
 
         case "Tank":
@@ -80,12 +85,16 @@ define(function(require) {
   Game.prototype.sendMessage = function(message) {
     message = JSON.stringify( message );
 
-    socket.send( message );
+    this.socket.send( message );
   };
 
   Game.prototype.receiveWorldMessage = function(message) {
     console.log(message);
   };
+
+  Game.prototype.setOptions = function(opts) {
+    this.options = opts;
+  }
 
   Game.prototype.stop = function() {
     this._gameState = GameState.STOPPED;
