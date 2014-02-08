@@ -1,14 +1,24 @@
-require(['lib/game'], function(Game) {
+require(['lib/game', 'game/World'], function(Game, World) {
+
+  var world = new World();
 
   var game = new Game({
     preloadAssets: function(assetsManager) {
+      //TODO: load assets
 
+      world.setAssetsManager(assetsManager);
     },
 
     update: function(frame) {
+      world.update(frame);
     },
 
     draw: function(frame) {
+      world.draw(frame);
+    },
+
+    receiveWorldMessage: function(msg) {
+      world.updateState(msg);
     }
   });
 

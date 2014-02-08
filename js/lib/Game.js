@@ -10,6 +10,7 @@ define(function(require) {
     this.preloadAssets = opts.preloadAssets;
     this.update = opts.update;
     this.draw = opts.draw;
+    this.receiveWorldMessage = opts.receiveWorldMessage;
 
     this._assetsLoaded = false;
 
@@ -86,10 +87,6 @@ define(function(require) {
     message = JSON.stringify( message );
 
     this.socket.send( message );
-  };
-
-  Game.prototype.receiveWorldMessage = function(message) {
-    console.log(message);
   };
 
   Game.prototype.setOptions = function(opts) {
