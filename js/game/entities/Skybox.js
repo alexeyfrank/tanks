@@ -2,7 +2,8 @@ define(function(require) {
   function Skybox(o) {
     var geometry = new THREE.CubeGeometry(o.width, o.height, o.height);
     var material = new THREE.MeshBasicMaterial({
-      map: o.assetsManager.getTexture('skybox')
+//      map: o.assetsManager.getTexture('skybox')
+      color: 0x0000aa
     });
 
     material.side = THREE.BackSide;
