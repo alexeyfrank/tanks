@@ -27,7 +27,7 @@ define(function(require) {
     this._jsonLoader.load(path, function(g, m) {
       this.loadModelCallback(modelName, g, m);
       defer.resolve();
-    }.bind(this), '../textures/');
+    }.bind(this), '../../textures/');
 
     return defer.promise;
   }

@@ -3,8 +3,8 @@ define(function(require) {
     this._data = data;
 
     var model = assetsManager.getModel('tank_base');
-
-    var material = new THREE.MeshBasicMaterial({color: 0x00ff00, wireframe: true });
+    var texture = assetsManager.getTexture('tank');
+    var material = new THREE.MeshBasicMaterial({map: texture });
     this.baseMesh = new THREE.Mesh(model.geometry, material);
     this.baseMesh.rotateY(Math.PI / 2);
 
