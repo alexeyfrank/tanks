@@ -101,14 +101,17 @@ define(function(require) {
   Game.prototype.initGameControls = function() {
 
     var keys = {
-      'up': { left: 1, right:1 },
-      'down': { left: -1, right: -1 },
-      'left': { left: -0.5, right: 0.5 },
-      'right': { left: 0.5, right: -0.5 },
-      'w': { left: 1, right:1 },
-      's': { left: -1, right: -1 },
-      'a': { left: -0.5, right: 0.5 },
-      'd': { left: 0.5, right: -0.5 }
+
+      'up': { left: 1, right:1, repeat: false },
+      'down': { left: -1, right: -1, repeat: false },
+      'left': { left: -0.5, right: 0.5, repeat: false },
+      'right': { left: 0.5, right: -0.5, repeat: false },
+
+      'w': { left: 1, right:1, repeat: false },
+      's': { left: -1, right: -1, repeat: false },
+      'a': { left: -0.5, right: 0.5, repeat: false },
+      'd': { left: 0.5, right: -0.5, repeat: false }
+
     }
 
     var allKeys = Object.getOwnPropertyNames(keys);
@@ -117,7 +120,8 @@ define(function(require) {
 
     Mousetrap.bind(allKeys, function(event, keyName){
       event.preventDefault()
-      if(!event.repeat){
+      if(!event.repeat && !keys[keyName].repeat){
+        keys[keyName].repeat = true
 
         left += keys[keyName].left
         right += keys[keyName].right
@@ -135,6 +139,9 @@ define(function(require) {
     }.bind(this), "keydown")
 
     Mousetrap.bind(allKeys, function(event, keyName){
+      console.log(keyName, "up")
+      keys[keyName].repeat = false
+
       event.preventDefault()
 
         left -= keys[keyName].left
@@ -170,7 +177,7 @@ define(function(require) {
   Game.prototype.sendMessage = function(message) {
     message = JSON.stringify( message );
 
-    console.log("Sending to server :" + message)
+    //console.log("Sending to server :" + message)
 
     this.socket.send( message );
   };
