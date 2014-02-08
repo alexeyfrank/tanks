@@ -1,4 +1,4 @@
-require(['lib/game', 'game/World'], function(Game, World) {
+require(['lib/Game', 'game/World'], function(Game, World) {
 
   var world = new World({
     gameContainer: document.getElementById('game-container'),
