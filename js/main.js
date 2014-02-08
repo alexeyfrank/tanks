@@ -2,8 +2,8 @@ require(['lib/Game', 'game/World'], function(Game, World) {
 
   var world = new World({
     gameContainer: document.getElementById('game-container'),
-    width: 1024,
-    height: 768
+    width: window.innerWidth,
+    height: window.innerHeight
   });
 
   function repeatedTx(texture) {
@@ -18,6 +18,7 @@ require(['lib/Game', 'game/World'], function(Game, World) {
     preloadAssets: function(assetsManager) {
       assetsManager.loadTexture('terrain', '../textures/terrain.jpg', repeatedTx);
       assetsManager.loadTexture('skybox', '../textures/tank.jpg', noopTx);
+      assetsManager.loadTexture('tank', '../textures/tank.jpg', noopTx);
 
       var promise = Q.all([
         assetsManager.loadModel('tank_base', '../models/tank_base.js'),

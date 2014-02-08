@@ -17,17 +17,15 @@ define(function(require) {
     this._scene.add( axisHelper );
 
     this._terrain = new Entities.Terrain({
-      width: 768,
-      height: 1024,
+      width: this._config.width * 2,
+      height: this._config.height * 2,
       assetsManager: this._assetsManager
     });
 
     this._skybox = new Entities.Skybox({
-      radius: 1024,
+      radius: this._config.width,
       assetsManager: this._assetsManager
     })
-
-    window.t = this._terrain.mesh;
 
     this._scene.add(this._terrain.mesh);
     this._scene.add(this._skybox.mesh);
@@ -96,7 +94,6 @@ define(function(require) {
         this.tanks[item.Id] = tank;
         this._scene.add(tank.mesh);
       }
-
     }.bind(this))
   }
 
