@@ -87,10 +87,14 @@ define(function(require) {
 
   };
 
+  Game.prototype.rotateGun = function(val) {
+      this.sendTankCommand({Gun: {TurnAngle: val}})
+  };
+
   Game.prototype.initTurrelMouse = function() {
     setInterval(function(){
       var diff = this.getCameraDiffRotation()
-      this.sendTankCommand({Gun: {TurnAngle: diff}})
+      this.rotateGun(diff)
     }.bind(this), 1000)
   }
 

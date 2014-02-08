@@ -146,7 +146,17 @@ define(function(require) {
   }
 
   World.prototype.cameraRotationDiff = function() {
+    var tank = this.tanks[this._id]
+    var camRotation = (this._camera.rotation.y + Math.PI/2) * 180 / Math.PI
+    var gunRotation = tank.gunRotation()
+    var diff = camRotation - gunRotation
+
     console.log(this._camera.rotation.y)
+    console.log((this._camera.rotation.y) * 180 / Math.PI)
+    console.log((this._camera.rotation.y + Math.PI/2) * 180 / Math.PI)
+    console.log(tank.gunRotation())
+    console.log(diff)
+
     //this._camera.rotation.y
     return 0;
   }
