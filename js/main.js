@@ -1,4 +1,4 @@
-require(['lib/game', 'game/World'], function(Game) {
+require(['lib/game', 'game/World'], function(Game, World) {
 
   var world = new World();
 

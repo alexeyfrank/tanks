@@ -1,10 +1,14 @@
 define(function(require) {
-  var Object3D = require('lib/Object3D');
+  var Entities = require('game/Entities');
 
   function World() {
-    this.terrain = new Object3D();
+    this.terrain = new Entities.Terrain();
     this.tanks = [];
     this.bullets = [];
+  }
+
+  World.prototype.create = function() {
+    this._scene = new THREE.Scene();
   }
 
   World.prototype.update = function() {}
