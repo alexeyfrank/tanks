@@ -67,6 +67,7 @@ define(function(require) {
   }
 
   World.prototype.updateBulletsState = function(bullets) {
+    var existed = [];
     bullets.forEach(function(item){
 
      var newData = {
@@ -84,7 +85,14 @@ define(function(require) {
         this._scene.add(bullet.mesh);
       }
 
+      existed.push(parseInt(item.Id));
     }.bind(this))
+
+    _.forIn(this.bullets, function(b, id) {
+      if (!_.contains(existed, parseInt(id))) {
+        this._scene.remove(b.mesh);
+      }
+    }, this);
 
   }
 
