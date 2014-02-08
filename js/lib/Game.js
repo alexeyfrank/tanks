@@ -97,26 +97,14 @@ define(function(require) {
   Game.prototype.initGameControls = function() {
 
     var keys = {
-
-      'up': {
-        left: 1,
-        right:1
-      },
-
-      'down': {
-        left: -1,
-        right: -1
-      },
-
-      'left': {
-        left: -0.5,
-        right: 0.5
-      },
-
-      'right': {
-        left: 0.5,
-        right: -0.5
-      }
+      'up': { left: 1, right:1 },
+      'down': { left: -1, right: -1 },
+      'left': { left: -0.5, right: 0.5 },
+      'right': { left: 0.5, right: -0.5 },
+      'w': { left: 1, right:1 },
+      's': { left: -1, right: -1 },
+      'a': { left: -0.5, right: 0.5 },
+      'd': { left: 0.5, right: -0.5 }
     }
 
     var allKeys = Object.getOwnPropertyNames(keys);
@@ -159,7 +147,7 @@ define(function(require) {
       this.sendMotors(leftReal, rightReal)
     }.bind(this), "keyup")
 
-    Mousetrap.bind('enter', function(event, keyName){
+    Mousetrap.bind(['enter', 'space'], function(event, keyName){
       event.preventDefault()
       this.sendTankCommand({Fire: true})
     }.bind(this));
