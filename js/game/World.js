@@ -123,10 +123,10 @@ define(function(require) {
   World.prototype.updateCameraForPlayer = function(tank) {
     var delta = this._clock.getDelta()
 
-    this._camera.position.x = tank.position().x;
+    this._camera.position.x = tank.position().x -15;
     this._camera.position.z = tank.position().z;
 
-    this._camera.position.y = 4;
+    this._camera.position.y = 12;
 
     this._controls.update( delta );
 
