@@ -47,9 +47,9 @@ define(function(require) {
 
   Game.prototype._startBackendCycle = function() {
     this._initWebsocket()
-    this.socket.onopen(function() {
+    this.socket.onopen = function() {
       this._Authorizate()
-    }.bind(this));
+    }.bind(this);
   }
 
 
