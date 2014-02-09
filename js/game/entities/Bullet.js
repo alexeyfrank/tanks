@@ -4,7 +4,7 @@ define(function(require) {
 
     var model = assetsManager.getModel('bullet');
     this.mesh = new THREE.Mesh(model.geometry, model.material);
-    this.mesh.scale.x = 5; 
+    this.mesh.scale.x = 5;
     this.mesh.scale.y = 5;
     this.mesh.scale.z = 5;
 
