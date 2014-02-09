@@ -65,9 +65,9 @@ define(function(require) {
     this.socket.onmessage = function ( event ) {
       var message = JSON.parse(event.data)
 
-//      if(message.Message) {
-//        console.log(message.Message)
-//      }
+      if(message.Message) {
+        console.log(message.Message)
+      }
 
       switch(message["Type"]){
         case "World":
@@ -180,6 +180,8 @@ define(function(require) {
 
   Game.prototype.sendMessage = function(message) {
     message = JSON.stringify( message );
+    
+    console.log("Sending: " + message)
 
     this.socket.send( message );
   };
