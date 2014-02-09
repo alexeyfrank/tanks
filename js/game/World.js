@@ -7,6 +7,7 @@ define(function(require) {
     this._scene = new THREE.Scene();
     this._camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 3000 );
     this._clock = new THREE.Clock();
+    this.grassAnimation = false
 
     //this._camera.rotation.x = Math.PI / 2;
 
@@ -23,7 +24,6 @@ define(function(require) {
 
     var axisHelper = new THREE.AxisHelper( 50 );
     this._scene.add( axisHelper );
-
 
     this._terrain = new Entities.Terrain({
       width: this._config.width,
@@ -178,6 +178,8 @@ define(function(require) {
 
     this._camera.position.y = 12;
 
+    if(this.grassAnimation) {
+
         for ( var i = 0, il = this._grass.vertices.length / 2 - 1; i <= il; i ++ ) {
           for ( var j = 0, jl = 5, f = (il - i) / il; j < jl; j++ ) {
             if(this._grass.vertices[ jl * i + j  ])
@@ -186,6 +188,7 @@ define(function(require) {
         }
 
         this._grass.verticesNeedUpdate = true;
+    }
 
     this._controls.update( delta );
 
