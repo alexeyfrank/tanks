@@ -37,8 +37,44 @@ define(function(require) {
       assetsManager: this._assetsManager
     })
 
+
+    var grassGeometry = new THREE.PlaneGeometry( 10, 35, 5, 100 );
+        grassGeometry.dynamic = true;
+        grassGeometry.vertices[ 3 ].z = 1;
+    this._grass = grassGeometry;
+
+    var grassMap = THREE.ImageUtils.loadTexture( 'textures/grass_billboard.png' );
+    var grassMaterial = new THREE.MeshBasicMaterial( { map: grassMap, alphaTest: 0.8, side: THREE.DoubleSide } );
+
     this._scene.add(this._terrain.mesh);
     this._scene.add(this._skybox.mesh);
+
+    var grassMeshes = []
+    for ( var i = 0, l = 500; i < l; i++ ) {
+      grassMeshes[i] = new THREE.Mesh( grassGeometry, grassMaterial );
+
+      grassMeshes[i].position.x = Math.random() * this._config.width / 4 + this._config.width / 4 ;
+      grassMeshes[i].position.z = Math.random() * this._config.height / 4 + this._config.height / 4;
+      grassMeshes[i].position.y =13
+
+      grassMeshes[i].rotation.y = Math.random() * Math.PI;
+      this._scene.add( grassMeshes[i] );
+    }
+
+    for ( var i = 0, l = 500; i < l; i++ ) {
+      grassMeshes[i] = new THREE.Mesh( grassGeometry, grassMaterial );
+
+      grassMeshes[i].position.x = Math.random() * this._config.width ;
+      grassMeshes[i].position.z = Math.random() * this._config.height;
+      grassMeshes[i].position.y =13
+
+      grassMeshes[i].rotation.y = Math.random() * Math.PI;
+      this._scene.add( grassMeshes[i] );
+    }
+
+
+
+
 
     this.tanks = {};
     this.bullets = {};
@@ -132,11 +168,21 @@ define(function(require) {
 
   World.prototype.updateCameraForPlayer = function(tank) {
     var delta = this._clock.getDelta()
+    var time = this._clock.getElapsedTime();
 
     this._camera.position.x = tank.position().x -15;
     this._camera.position.z = tank.position().z;
 
     this._camera.position.y = 12;
+
+        for ( var i = 0, il = this._grass.vertices.length / 2 - 1; i <= il; i ++ ) {
+          for ( var j = 0, jl = 5, f = (il - i) / il; j < jl; j++ ) {
+            if(this._grass.vertices[ jl * i + j  ])
+              this._grass.vertices[ jl * i + j  ].z = f * Math.sin(time) / 2
+          }
+        }
+
+        this._grass.verticesNeedUpdate = true;
 
     this._controls.update( delta );
 

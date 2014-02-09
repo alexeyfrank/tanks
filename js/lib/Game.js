@@ -144,7 +144,6 @@ define(function(require) {
     }.bind(this), "keydown")
 
     Mousetrap.bind(allKeys, function(event, keyName){
-      console.log(keyName, "up")
       keys[keyName].repeat = false
 
       event.preventDefault()
