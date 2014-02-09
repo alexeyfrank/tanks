@@ -1,6 +1,12 @@
 define(function(require) {
   var AssetsManager = require('lib/AssetsManager');
 
+  var debugMode = window.location.hash
+  window.debuglog = function(){
+    if(debugMode)
+      console.log(arguments);
+  }
+
   var GameState = {
     STARTED: 1,
     STOPPED: 2
@@ -66,7 +72,7 @@ define(function(require) {
       var message = JSON.parse(event.data)
 
       if(message.Message) {
-        console.log(message.Message)
+        debuglog(message.Message)
       }
 
       switch(message["Type"]){
@@ -126,6 +132,8 @@ define(function(require) {
     Mousetrap.bind(allKeys, function(event, keyName){
       event.preventDefault()
       if(!event.repeat && !keys[keyName].repeat){
+        debuglog(keyName, "down")
+
         keys[keyName].repeat = true
 
         left += keys[keyName].left
@@ -145,6 +153,8 @@ define(function(require) {
 
     Mousetrap.bind(allKeys, function(event, keyName){
       keys[keyName].repeat = false
+
+      debuglog(keyName, "up")
 
       event.preventDefault()
 
@@ -180,8 +190,8 @@ define(function(require) {
 
   Game.prototype.sendMessage = function(message) {
     message = JSON.stringify( message );
-    
-    console.log("Sending: " + message)
+
+    debuglog("Sending: " + message)
 
     this.socket.send( message );
   };
