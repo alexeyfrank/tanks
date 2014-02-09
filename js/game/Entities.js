@@ -3,7 +3,8 @@ define(function(require) {
     Tank: require('game/entities/Tank'),
     Terrain: require('game/entities/Terrain'),
     Skybox: require('game/entities/Skybox'),
-    Bullet: require('game/entities/Bullet')
+    Bullet: require('game/entities/Bullet'),
+    Foresight: require('game/entities/Foresight'),
   };
 
 });
