@@ -45,9 +45,11 @@ define(function(require) {
 
     var grassMap = THREE.ImageUtils.loadTexture( 'textures/grass_billboard.png' );
     var grassMaterial = new THREE.MeshBasicMaterial( { map: grassMap, alphaTest: 0.8, side: THREE.DoubleSide } );
+    this._foresight = new Entities.Foresight();
 
     this._scene.add(this._terrain.mesh);
     this._scene.add(this._skybox.mesh);
+    this._scene.add(this._foresight.mesh);
 
     var grassMeshes = []
     for ( var i = 0, l = 500; i < l; i++ ) {
@@ -87,6 +89,7 @@ define(function(require) {
       tank.update(frame);
       if (this._id && id == this._id) {
         this.updateCameraForPlayer(tank);
+        this._foresight.updateFromPlayer(tank);
       }
     }, this);
     _.forIn(this.bullets, function(bullet, id) {
