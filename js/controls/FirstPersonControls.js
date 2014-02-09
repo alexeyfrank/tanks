@@ -261,9 +261,10 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 		this.object.lookAt( targetPosition );
 
     //TODO: move numbers to config
-    this.object.position.x -= 15 * Math.sin( this.phi ) * Math.cos( this.theta );
-    this.object.position.y -= 15 * Math.cos( this.phi );
-    this.object.position.z -= 15 * Math.sin( this.phi ) * Math.sin( this.theta );
+    var distance = 20
+    this.object.position.x -= distance * Math.sin( this.phi ) * Math.cos( this.theta );
+    this.object.position.y -= distance * Math.cos( this.phi );
+    this.object.position.z -= distance * Math.sin( this.phi ) * Math.sin( this.theta );
   };
 
 

@@ -7,7 +7,7 @@ define(function(require) {
 
     this.mesh.position.x = o.width / 2;
     this.mesh.position.z = o.height / 2;
-    this.mesh.position.y = 25;
+    this.mesh.position.y = 35;
 
 //    this.mesh.rotation.x = - Math.PI/ 2
   }

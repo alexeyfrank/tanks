@@ -57,7 +57,7 @@ define(function(require) {
 
       grassMeshes[i].position.x = Math.random() * this._config.width / 4 + this._config.width / 4 ;
       grassMeshes[i].position.z = Math.random() * this._config.height / 4 + this._config.height / 4;
-      grassMeshes[i].position.y = 12
+      grassMeshes[i].position.y = 19 
 
       grassMeshes[i].rotation.y = Math.random() * Math.PI;
       this._scene.add( grassMeshes[i] );
@@ -68,7 +68,7 @@ define(function(require) {
 
       grassMeshes[i].position.x = Math.random() * this._config.width ;
       grassMeshes[i].position.z = Math.random() * this._config.height;
-      grassMeshes[i].position.y = 12
+      grassMeshes[i].position.y = 19
 
       grassMeshes[i].rotation.y = Math.random() * Math.PI;
       this._scene.add( grassMeshes[i] );
