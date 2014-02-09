@@ -23,17 +23,15 @@ require(['lib/Game', 'game/World'], function(Game, World) {
 
 //      assetsManager.loadAudio('fight', '../audio/fight.mp3');
 
-      var promise = Q.all([
+      return Q.all([
         assetsManager.loadModel('tank_base', '../models/tank_base.json'),
         assetsManager.loadModel('tank_tower', '../models/tank_tower.json'),
         assetsManager.loadModel('bullet', '../models/bullet.json'),
         assetsManager.loadModel('terrainModel', '../models/terrain.json')
-      ]);
-
-      world.setAssetsManager(assetsManager);
-      world.create();
-
-      return promise;
+      ]).then(function(){
+        world.setAssetsManager(assetsManager);
+        world.create();
+      });
     },
 
     update: function(frame) {

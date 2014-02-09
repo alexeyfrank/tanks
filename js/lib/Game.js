@@ -69,7 +69,6 @@ define(function(require) {
 //        console.log(message.Message)
 //      }
 
-      console.log(message['Type'])
       switch(message["Type"]){
         case "World":
           self.receiveWorldMessage(message)
