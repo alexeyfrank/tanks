@@ -38,7 +38,7 @@ define(function(require) {
     })
 
 
-    var grassGeometry = new THREE.PlaneGeometry( 10, 35, 5, 100 );
+    var grassGeometry = new THREE.PlaneGeometry( 10, 55, 5, 100 );
         grassGeometry.dynamic = true;
         grassGeometry.vertices[ 3 ].z = 1;
     this._grass = grassGeometry;
@@ -57,7 +57,7 @@ define(function(require) {
 
       grassMeshes[i].position.x = Math.random() * this._config.width / 4 + this._config.width / 4 ;
       grassMeshes[i].position.z = Math.random() * this._config.height / 4 + this._config.height / 4;
-      grassMeshes[i].position.y =13
+      grassMeshes[i].position.y = 12
 
       grassMeshes[i].rotation.y = Math.random() * Math.PI;
       this._scene.add( grassMeshes[i] );
@@ -68,7 +68,7 @@ define(function(require) {
 
       grassMeshes[i].position.x = Math.random() * this._config.width ;
       grassMeshes[i].position.z = Math.random() * this._config.height;
-      grassMeshes[i].position.y =13
+      grassMeshes[i].position.y = 12
 
       grassMeshes[i].rotation.y = Math.random() * Math.PI;
       this._scene.add( grassMeshes[i] );

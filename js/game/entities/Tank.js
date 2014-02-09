@@ -30,7 +30,7 @@ define(function(require) {
   Tank.prototype.update = function(frame) {
     this.baseMesh.position.x = this._data.y;
     this.baseMesh.position.z = this._data.x;
-    this.baseMesh.position.y = 2.5;
+    this.baseMesh.position.y = 1;
 
     this.towerMesh.position.x = this._data.y;
     this.towerMesh.position.z = this._data.x;
