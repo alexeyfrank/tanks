@@ -47,9 +47,9 @@ define(function(require) {
 
   Game.prototype._startBackendCycle = function() {
     this._initWebsocket()
-    setTimeout(function() {
+    this.socket.onopen(function() {
       this._Authorizate()
-    }.bind(this), 1000);
+    }.bind(this));
   }
 
 
@@ -60,7 +60,7 @@ define(function(require) {
   Game.prototype._initWebsocket = function() {
     var self = this;
 
-    this.socket = new WebSocket("ws://192.168.0.71:9000/ws")
+    this.socket = new WebSocket("ws://tanks.nox73.ru:9000/ws")
 
     this.socket.onmessage = function ( event ) {
       var message = JSON.parse(event.data)
